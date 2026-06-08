@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Skifteboksen hjelper norske foreldre med sesongskiftet – sjekklister for barnehage, SFO og barneskole hele året.">
+    <meta name="theme-color" content="#2D5F7F">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://skifteboksen.no/">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Skifteboksen – Sesongskiftet gjort enkelt">
+    <meta property="og:description" content="Sjekklister for hva barn skal ha på seg hver sesong – barnehage, SFO og barneskole.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="nb_NO">
+    
+    <!-- Apple Web App -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Skifteboksen">
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-family='system-ui'>📦</text></svg>">
+    
+    <link rel="stylesheet" href="style.css">
+    <title>Skifteboksen – Sesongskiftet gjort enkelt</title>
+</head>
+<body>
+    <div id="app" class="app-container">
+        <header class="app-header">
+            <h1 class="app-title">📦 Skifteboksen</h1>
+            <p class="app-subtitle">Hva skal barn ha på seg denne sesongen?</p>
+        </header>
+
+        <main class="app-main">
+            <!-- Season & Context Selector -->
+            <section class="selector-section" aria-labelledby="season-label">
+                <div class="selector-group">
+                    <label id="season-label" for="season-select" class="selector-label">Sesong</label>
+                    <select id="season-select" class="selector-input" aria-describedby="season-help">
+                        <option value="vinter">❄️ Vinter</option>
+                        <option value="var">🌱 Vår</option>
+                        <option value="sommer">☀️ Sommer</option>
+                        <option value="host">🍂 Høst</option>
+                    </select>
+                    <small id="season-help" class="selector-help">Velg hvilken sesong du trenger hjelp til</small>
+                </div>
+
+                <div class="selector-group">
+                    <label for="context-select" class="selector-label">Setting</label>
+                    <select id="context-select" class="selector-input">
+                        <option value="barnehage">Barnehage</option>
+                        <option value="sfo">SFO</option>
+                        <option value="barneskole">Barneskole</option>
+                    </select>
+                </div>
+
+                <div class="selector-group">
+                    <label for="age-select" class="selector-label">Barnets alder</label>
+                    <select id="age-select" class="selector-input">
+                        <option value="0-1">0–1 år</option>
+                        <option value="1-3">1–3 år</option>
+                        <option value="3-6">3–6 år</option>
+                        <option value="6-10">6–10 år</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Checklist -->
+            <section class="checklist-section" aria-labelledby="checklist-title">
+                <h2 id="checklist-title" class="checklist-title">
+                    <span id="season-emoji">❄️</span>
+                    <span id="checklist-heading">Vinter barnehage</span>
+                </h2>
+                
+                <div id="checklist" class="checklist" role="group" aria-labelledby="checklist-title">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <div id="custom-items" class="custom-items">
+                    <!-- Custom items rendered here -->
+                </div>
+
+                <!-- Add Custom Item Form -->
+                <form id="add-item-form" class="add-item-form" onsubmit="addCustomItem(event)">
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="custom-item-input" 
+                            placeholder="Legg til eget item..." 
+                            class="custom-item-input"
+                            maxlength="50"
+                            aria-label="Navn på eget item"
+                        >
+                        <button type="submit" class="btn-add-item" aria-label="Legg til eget item">
+                            ➕ Legg til
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Actions -->
+            <section class="actions-section">
+                <button id="reset-btn" class="btn-reset" onclick="resetChecklist()" aria-label="Tilbakestill alle sjekkebokser">
+                    🔄 Tilbakestill
+                </button>
+                <p class="progress-text">
+                    <span id="progress-count">0</span> / <span id="total-count">0</span> ferdig
+                </p>
+            </section>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <p>Laget av foreldre, for foreldre i Norge 🇳🇴</p>
+                <p class="version">v1.0 • Pilot Telemark</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Structured Data: FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Hva bør barn ha på seg i vinterbarnehagen?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Barn i barnehage trenger varmt lag: sokker, undertrøye, ullundertøy, vinterjakke, lue, votter, og overtrekksko eller gummistøvler."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Hvor ofte skal jeg bytte klær på barn?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Sjekk værmeldingen og byttelisten når sesongen skifter. De fleste foreldre sjekker hver 3-4 uker eller når været endrer seg drastisk."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Hva er overtrekksko?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Overtrekksko (eller Cherrox) er elastiske skodekkinger du trekker over barnets sko. De er vanlige i Norge for å holde varmen og unngå å få snø inn i skoene."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <script src="app.js"></script>
+</body>
+</html>

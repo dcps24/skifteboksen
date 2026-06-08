@@ -1,0 +1,572 @@
+/* ============================================
+   Skifteboksen v1 – Style.css
+   Mobile-first, accessible, Norwegian parent-friendly
+   ============================================ */
+
+:root {
+    /* Season Colors */
+    --color-winter: #2D5F7F;
+    --color-spring: #6B8E4E;
+    --color-summer: #D4A574;
+    --color-autumn: #C55A3A;
+    
+    /* Neutral Palette */
+    --color-primary: #2D5F7F;
+    --color-text: #2C3E50;
+    --color-text-light: #7F8C8D;
+    --color-bg: #FFFFFF;
+    --color-bg-light: #F8F9FA;
+    --color-border: #E0E6ED;
+    --color-success: #27AE60;
+    --color-error: #E74C3C;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* Typography */
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    
+    /* Touch Target Size (minimum 48px per WCAG) */
+    --touch-target: 3rem;
+    
+    /* Radius */
+    --radius-sm: 0.5rem;
+    --radius-md: 1rem;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================
+   Global Styles
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--color-bg-light);
+}
+
+/* ============================================
+   App Container
+   ============================================ */
+
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #1a3a52 100%);
+    color: #FFFFFF;
+    padding: var(--spacing-lg) var(--spacing-md);
+    text-align: center;
+    box-shadow: var(--shadow-md);
+}
+
+.app-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-xs);
+    letter-spacing: -0.5px;
+}
+
+.app-subtitle {
+    font-size: var(--font-size-base);
+    opacity: 0.95;
+    font-weight: 400;
+}
+
+.app-main {
+    flex: 1;
+    padding: var(--spacing-md);
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ============================================
+   Selectors (Season, Context, Age)
+   ============================================ */
+
+.selector-section {
+    background: var(--color-bg);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.selector-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.selector-group:last-child {
+    margin-bottom: 0;
+}
+
+.selector-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+}
+
+.selector-input {
+    width: 100%;
+    padding: var(--spacing-sm);
+    font-size: var(--font-size-base);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    padding-right: 2.5rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%232D5F7F' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--spacing-sm) center;
+    padding-right: var(--spacing-lg);
+}
+
+.selector-input:hover {
+    border-color: var(--color-primary);
+}
+
+.selector-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(45, 95, 127, 0.1);
+}
+
+.selector-help {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+}
+
+/* ============================================
+   Checklist
+   ============================================ */
+
+.checklist-section {
+    background: var(--color-bg);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.checklist-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-primary);
+}
+
+.checklist {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* ============================================
+   Checklist Item
+   ============================================ */
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background-color: var(--color-bg-light);
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--color-primary);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.checklist-item:hover {
+    background-color: #FFFAF5;
+    box-shadow: var(--shadow-sm);
+}
+
+.checklist-item input[type="checkbox"] {
+    width: var(--touch-target);
+    height: var(--touch-target);
+    min-width: var(--touch-target);
+    min-height: var(--touch-target);
+    cursor: pointer;
+    accent-color: var(--color-success);
+}
+
+.checklist-item input[type="checkbox"]:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.checklist-item-label {
+    flex: 1;
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.checklist-item input[type="checkbox"]:checked + .checklist-item-label {
+    color: var(--color-text-light);
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.checklist-item-note {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    margin-top: var(--spacing-xs);
+    margin-left: calc(var(--touch-target) + var(--spacing-md));
+}
+
+.item-variant {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    margin-left: var(--spacing-xs);
+}
+
+/* ============================================
+   Custom Items
+   ============================================ */
+
+.custom-items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.custom-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background-color: #FFF9F0;
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--color-autumn);
+}
+
+.custom-item-content {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: var(--spacing-md);
+}
+
+.custom-item input[type="checkbox"] {
+    width: var(--touch-target);
+    height: var(--touch-target);
+    min-width: var(--touch-target);
+    min-height: var(--touch-target);
+    cursor: pointer;
+    accent-color: var(--color-success);
+}
+
+.custom-item-label {
+    flex: 1;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+}
+
+.btn-delete-item {
+    background: none;
+    border: none;
+    color: var(--color-error);
+    font-size: var(--font-size-lg);
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-sm);
+    transition: background-color 0.2s;
+}
+
+.btn-delete-item:hover {
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+.btn-delete-item:focus {
+    outline: 2px solid var(--color-error);
+}
+
+/* ============================================
+   Add Item Form
+   ============================================ */
+
+.add-item-form {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.custom-item-input {
+    flex: 1;
+    padding: var(--spacing-sm);
+    font-size: var(--font-size-base);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.2s;
+}
+
+.custom-item-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.btn-add-item {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    white-space: nowrap;
+    min-height: var(--touch-target);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-add-item:hover {
+    background-color: #1a3a52;
+}
+
+.btn-add-item:active {
+    transform: scale(0.98);
+}
+
+.btn-add-item:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   Actions
+   ============================================ */
+
+.actions-section {
+    background: var(--color-bg);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-reset {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background-color: var(--color-border);
+    color: var(--color-text);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-bottom: var(--spacing-md);
+    min-height: var(--touch-target);
+}
+
+.btn-reset:hover {
+    background-color: #D4D8E0;
+}
+
+.btn-reset:active {
+    transform: scale(0.98);
+}
+
+.btn-reset:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.progress-text {
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+    font-weight: 500;
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+
+.app-footer {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-light);
+    text-align: center;
+    padding: var(--spacing-lg) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    border-top: 1px solid var(--color-border);
+}
+
+.app-footer p {
+    margin: var(--spacing-xs) 0;
+}
+
+.version {
+    font-size: var(--font-size-sm);
+    opacity: 0.8;
+}
+
+/* ============================================
+   Seasonal Theme Switching
+   ============================================ */
+
+.app-header.theme-winter {
+    background: linear-gradient(135deg, #2D5F7F 0%, #1a3a52 100%);
+}
+
+.app-header.theme-spring {
+    background: linear-gradient(135deg, #6B8E4E 0%, #4d5f38 100%);
+}
+
+.app-header.theme-summer {
+    background: linear-gradient(135deg, #D4A574 0%, #a67f52 100%);
+}
+
+.app-header.theme-autumn {
+    background: linear-gradient(135deg, #C55A3A 0%, #9d4228 100%);
+}
+
+.checklist-title {
+    color: var(--color-primary);
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (min-width: 768px) {
+    .app-main {
+        padding: var(--spacing-lg);
+    }
+    
+    .selector-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .selector-group {
+        margin-bottom: 0;
+    }
+}
+
+/* ============================================
+   Dark Mode Support (Optional)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-text: #ECF0F1;
+        --color-text-light: #BDC3C7;
+        --color-bg: #2C3E50;
+        --color-bg-light: #34495E;
+        --color-border: #445566;
+    }
+    
+    .selector-input,
+    .custom-item-input {
+        background-color: var(--color-bg);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23ECF0F1' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    }
+    
+    .checklist-item,
+    .checklist-section,
+    .selector-section,
+    .actions-section {
+        background-color: var(--color-bg);
+    }
+    
+    .checklist-item {
+        background-color: var(--color-bg-light);
+    }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+    body {
+        background: white;
+    }
+    
+    .app-header,
+    .selector-section,
+    .actions-section,
+    .app-footer {
+        display: none;
+    }
+    
+    .checklist-item {
+        page-break-inside: avoid;
+    }
+}
+
+/* ============================================
+   Accessibility & Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus Visible for Keyboard Navigation */
+:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
