@@ -1,13 +1,13 @@
 {
   "routes": [
     {
-      "route": "/*",
-      "serve": "/index.html",
+      "route": "/manifest.json",
+      "serve": "/manifest.json",
       "statusCode": 200
     },
     {
-      "route": "/manifest.json",
-      "serve": "/manifest.json",
+      "route": "/*",
+      "serve": "/index.html",
       "statusCode": 200
     }
   ],
