@@ -79,7 +79,7 @@ const checklistData = {
                 { id: 'sokker', name: 'Varme sokker', note: '1–2 ekstra' },
                 { id: 'vinterjakke', name: 'Vinterjakke' },
                 { id: 'lue', name: 'Vinter-lue' },
-                { id: 'votter', name: 'Votter', note: 'Ekstra pair' },
+                { id: 'votter', name: 'Votter', note: 'Ekstra par' },
                 { id: 'overtrekksko', name: 'Overtrekksko eller gummistøvler' },
                 { id: 'halstørkle', name: 'Halstørkle' }
             ],
@@ -126,7 +126,7 @@ const checklistData = {
                 { id: 'lue', name: 'Lett lue eller pannebånd', note: 'Beskytter mot vind' },
                 { id: 'handsker', name: 'Lette handsker', note: 'Vind kan være kald' },
                 { id: 'gummistøvler', name: 'Gummistøvler', note: 'For søl og fuktig bakke' },
-                { id: 'solbriller', name: 'Solbriller', note: 'Beskytter mot sol og snøreflesjson' }
+                { id: 'solbriller', name: 'Solbriller', note: 'Beskytter mot sol' }
             ],
             '1-3': [
                 { id: 'sokker', name: 'Mellomvarme sokker' },
@@ -144,7 +144,7 @@ const checklistData = {
                 { id: 'vårjakke', name: 'Vårjakke' },
                 { id: 'bukse', name: 'Lange bukser' },
                 { id: 'lue', name: 'Lette luer' },
-                { id: 'handsker', name: 'Handsker', note: 'Bare i frühe vår' },
+                { id: 'handsker', name: 'Handsker', note: 'Bare i tidlig vår' },
                 { id: 'gummistøvler', name: 'Gummistøvler' },
                 { id: 'solbriller', name: 'Solbriller' }
             ],
@@ -388,13 +388,50 @@ const checklistData = {
 };
 
 // ============================================
+// Season Auto-Detection
+// ============================================
+
+function getCurrentSeason() {
+    const month = new Date().getMonth() + 1; // 1–12
+    if (month === 12 || month <= 2) return 'vinter';
+    if (month <= 5) return 'var';
+    if (month <= 8) return 'sommer';
+    return 'host';
+}
+
+// ============================================
+// Preferences: save/restore selectors
+// ============================================
+
+const PREFS_KEY = 'skifteboksen_prefs';
+
+function loadPrefs() {
+    try {
+        const stored = localStorage.getItem(PREFS_KEY);
+        return stored ? JSON.parse(stored) : {};
+    } catch (e) {
+        return {};
+    }
+}
+
+function savePrefs() {
+    localStorage.setItem(PREFS_KEY, JSON.stringify({
+        season: currentState.season,
+        context: currentState.context,
+        age: currentState.age
+    }));
+}
+
+// ============================================
 // State Management
 // ============================================
 
+const prefs = loadPrefs();
+
 let currentState = {
-    season: 'vinter',
-    context: 'barnehage',
-    age: '1-3',
+    season: prefs.season || getCurrentSeason(),
+    context: prefs.context || 'barnehage',
+    age: prefs.age || '1-3',
     checkedItems: {},
     customItems: {}
 };
@@ -434,14 +471,14 @@ function loadState() {
         } catch (e) {
             console.error('Failed to parse localStorage:', e);
         }
+    } else {
+        currentState.checkedItems = {};
     }
 }
 
 function saveState() {
     const key = getStorageKey(currentState.season, currentState.context, currentState.age);
     localStorage.setItem(key, JSON.stringify(currentState.checkedItems));
-    
-    // Also save custom items separately
     const customKey = `${key}_custom`;
     localStorage.setItem(customKey, JSON.stringify(currentState.customItems));
 }
@@ -467,37 +504,33 @@ function loadCustomItems() {
 function renderChecklist() {
     loadState();
     loadCustomItems();
-    
-    const season = currentState.season;
-    const context = currentState.context;
-    const age = currentState.age;
-    
-    // Validate data exists
-    if (!checklistData[season] || !checklistData[season][context] || !checklistData[season][context][age]) {
-        document.getElementById('checklist').innerHTML = '<p>Ingen items for denne kombinasjonen.</p>';
+
+    const { season, context, age } = currentState;
+
+    if (!checklistData[season]?.[context]?.[age]) {
+        document.getElementById('checklist').innerHTML = '<p>Ingen plagg for denne kombinasjonen.</p>';
         return;
     }
-    
+
     const items = checklistData[season][context][age];
     const checklistHTML = items.map(item => {
         const isChecked = currentState.checkedItems[item.id] || false;
-        const checkedClass = isChecked ? 'checked' : '';
-        
+
         let variantUI = '';
         if (item.variants && item.variants.length > 0) {
             variantUI = `<span class="item-variant">(${item.variants.join(' / ')})</span>`;
         }
-        
+
         let noteUI = '';
         if (item.note) {
             noteUI = `<div class="checklist-item-note">${item.note}</div>`;
         }
-        
+
         return `
             <div class="checklist-item">
-                <input 
-                    type="checkbox" 
-                    id="item_${item.id}" 
+                <input
+                    type="checkbox"
+                    id="item_${item.id}"
                     ${isChecked ? 'checked' : ''}
                     onchange="toggleItem('${item.id}')"
                     aria-label="${item.name}"
@@ -509,7 +542,7 @@ function renderChecklist() {
             </div>
         `;
     }).join('');
-    
+
     document.getElementById('checklist').innerHTML = checklistHTML;
 }
 
@@ -519,18 +552,18 @@ function renderCustomItems() {
         return `
             <div class="custom-item">
                 <div class="custom-item-content">
-                    <input 
-                        type="checkbox" 
-                        id="custom_item_${id}" 
+                    <input
+                        type="checkbox"
+                        id="custom_item_${id}"
                         ${isChecked ? 'checked' : ''}
                         onchange="toggleItem('custom_${id}')"
                         aria-label="${item.name}"
                     >
                     <label for="custom_item_${id}" class="custom-item-label">${item.name}</label>
                 </div>
-                <button 
+                <button
                     type="button"
-                    class="btn-delete-item" 
+                    class="btn-delete-item"
                     onclick="deleteCustomItem('${id}')"
                     aria-label="Slett ${item.name}"
                 >
@@ -539,7 +572,7 @@ function renderCustomItems() {
             </div>
         `;
     }).join('');
-    
+
     document.getElementById('custom-items').innerHTML = customHTML;
 }
 
@@ -557,12 +590,9 @@ function addCustomItem(e) {
     e.preventDefault();
     const input = document.getElementById('custom-item-input');
     const itemName = input.value.trim();
-    
-    if (!itemName) {
-        alert('Skriv inn navn på itemet');
-        return;
-    }
-    
+
+    if (!itemName) return;
+
     const id = `custom_${Date.now()}`;
     currentState.customItems[id] = { name: itemName };
     saveState();
@@ -580,37 +610,54 @@ function deleteCustomItem(id) {
 }
 
 // ============================================
-// Progress Tracking
+// Progress Tracking & Completion Celebration
 // ============================================
 
 function updateProgress() {
-    const allItems = [
-        ...Object.keys(checklistData[currentState.season]?.[currentState.context]?.[currentState.age] || []).map(i => i.id || ''),
-        ...Object.keys(currentState.customItems)
+    const { season, context, age } = currentState;
+    const baseItems = checklistData[season]?.[context]?.[age] || [];
+    const customItemIds = Object.keys(currentState.customItems).map(id => `custom_${id}`);
+    const allItemIds = [
+        ...baseItems.map(item => item.id),
+        ...customItemIds
     ];
-    
-    const checkedCount = Object.keys(currentState.checkedItems).filter(key => 
-        currentState.checkedItems[key] === true
-    ).length;
-    
-    const totalCount = allItems.length + Object.keys(currentState.customItems).length;
-    
+
+    const totalCount = allItemIds.length;
+    const checkedCount = allItemIds.filter(id => currentState.checkedItems[id] === true).length;
+
     document.getElementById('progress-count').textContent = checkedCount;
     document.getElementById('total-count').textContent = totalCount;
+
+    const celebration = document.getElementById('celebration');
+    if (totalCount > 0 && checkedCount === totalCount) {
+        celebration.hidden = false;
+    } else {
+        celebration.hidden = true;
+    }
 }
 
 // ============================================
-// Reset
+// Reset with inline confirmation
 // ============================================
 
 function resetChecklist() {
-    if (confirm('Er du sikker? Dette vil tilbakestille alle sjekkebokser.')) {
-        currentState.checkedItems = {};
-        saveState();
-        renderChecklist();
-        renderCustomItems();
-        updateProgress();
-    }
+    const confirmEl = document.getElementById('reset-confirm');
+    confirmEl.hidden = false;
+    document.getElementById('reset-btn').hidden = true;
+}
+
+function confirmReset() {
+    currentState.checkedItems = {};
+    saveState();
+    renderChecklist();
+    renderCustomItems();
+    updateProgress();
+    cancelReset();
+}
+
+function cancelReset() {
+    document.getElementById('reset-confirm').hidden = true;
+    document.getElementById('reset-btn').hidden = false;
 }
 
 // ============================================
@@ -619,8 +666,9 @@ function resetChecklist() {
 
 document.getElementById('season-select').addEventListener('change', (e) => {
     currentState.season = e.target.value;
-    currentState.checkedItems = {}; // Reset checkboxes when changing season
-    currentState.customItems = {}; // Reset custom items
+    currentState.checkedItems = {};
+    currentState.customItems = {};
+    savePrefs();
     updateHeading();
     renderChecklist();
     renderCustomItems();
@@ -631,6 +679,7 @@ document.getElementById('context-select').addEventListener('change', (e) => {
     currentState.context = e.target.value;
     currentState.checkedItems = {};
     currentState.customItems = {};
+    savePrefs();
     updateHeading();
     renderChecklist();
     renderCustomItems();
@@ -641,6 +690,7 @@ document.getElementById('age-select').addEventListener('change', (e) => {
     currentState.age = e.target.value;
     currentState.checkedItems = {};
     currentState.customItems = {};
+    savePrefs();
     updateHeading();
     renderChecklist();
     renderCustomItems();
@@ -658,13 +708,23 @@ function updateHeading() {
         sfo: 'SFO',
         barneskole: 'barneskole'
     };
-    
+    const seasonLabels = {
+        vinter: 'Vinter',
+        var: 'Vår',
+        sommer: 'Sommer',
+        host: 'Høst'
+    };
+
     document.getElementById('season-emoji').textContent = emoji;
-    document.getElementById('checklist-heading').textContent = 
-        `${currentState.season.charAt(0).toUpperCase() + currentState.season.slice(1)} ${contextLabels[currentState.context]}`;
-    
-    // Update theme
+    document.getElementById('checklist-heading').textContent =
+        `${seasonLabels[currentState.season]} ${contextLabels[currentState.context]}`;
+
     document.querySelector('.app-header').className = `app-header ${seasonThemes[currentState.season]}`;
+
+    // Sync selects to current state (important on initial load)
+    document.getElementById('season-select').value = currentState.season;
+    document.getElementById('context-select').value = currentState.context;
+    document.getElementById('age-select').value = currentState.age;
 }
 
 // ============================================
@@ -672,8 +732,8 @@ function updateHeading() {
 // ============================================
 
 window.addEventListener('DOMContentLoaded', () => {
+    updateHeading();
     renderChecklist();
     renderCustomItems();
-    updateHeading();
     updateProgress();
 });

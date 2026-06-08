@@ -9,7 +9,7 @@
     --color-spring: #6B8E4E;
     --color-summer: #D4A574;
     --color-autumn: #C55A3A;
-    
+
     /* Neutral Palette */
     --color-primary: #2D5F7F;
     --color-text: #2C3E50;
@@ -19,14 +19,14 @@
     --color-border: #E0E6ED;
     --color-success: #27AE60;
     --color-error: #E74C3C;
-    
+
     /* Spacing */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 1.5rem;
     --spacing-lg: 2rem;
     --spacing-xl: 3rem;
-    
+
     /* Typography */
     --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     --font-size-sm: 0.875rem;
@@ -34,14 +34,14 @@
     --font-size-lg: 1.125rem;
     --font-size-xl: 1.5rem;
     --font-size-2xl: 2rem;
-    
+
     /* Touch Target Size (minimum 48px per WCAG) */
     --touch-target: 3rem;
-    
+
     /* Radius */
     --radius-sm: 0.5rem;
     --radius-md: 1rem;
-    
+
     /* Shadows */
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.12);
@@ -149,7 +149,6 @@ body {
     cursor: pointer;
     transition: border-color 0.2s, box-shadow 0.2s;
     appearance: none;
-    padding-right: 2.5rem;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%232D5F7F' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right var(--spacing-sm) center;
@@ -429,10 +428,106 @@ body {
     outline-offset: 2px;
 }
 
+/* ============================================
+   Inline Reset Confirmation
+   ============================================ */
+
+.reset-confirm {
+    background-color: #FFF3CD;
+    border: 1px solid #FFEAA7;
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+}
+
+.reset-confirm-text {
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 500;
+}
+
+.reset-confirm-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+}
+
+.btn-confirm-yes {
+    padding: var(--spacing-xs) var(--spacing-md);
+    background-color: var(--color-error);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    min-height: var(--touch-target);
+    transition: background-color 0.2s;
+}
+
+.btn-confirm-yes:hover {
+    background-color: #c0392b;
+}
+
+.btn-confirm-no {
+    padding: var(--spacing-xs) var(--spacing-md);
+    background-color: var(--color-border);
+    color: var(--color-text);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    min-height: var(--touch-target);
+    transition: background-color 0.2s;
+}
+
+.btn-confirm-no:hover {
+    background-color: #D4D8E0;
+}
+
+/* ============================================
+   Completion Celebration
+   ============================================ */
+
+.celebration {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    border: 1px solid #b8dfc6;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+    animation: pop-in 0.3s ease-out;
+}
+
+@keyframes pop-in {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.celebration-emoji {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: var(--spacing-xs);
+}
+
+.celebration-text {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: #155724;
+}
+
+/* ============================================
+   Progress
+   ============================================ */
+
 .progress-text {
     font-size: var(--font-size-base);
     color: var(--color-text-light);
     font-weight: 500;
+    margin-top: var(--spacing-sm);
 }
 
 /* ============================================
@@ -477,10 +572,6 @@ body {
     background: linear-gradient(135deg, #C55A3A 0%, #9d4228 100%);
 }
 
-.checklist-title {
-    color: var(--color-primary);
-}
-
 /* ============================================
    Responsive Design
    ============================================ */
@@ -489,20 +580,20 @@ body {
     .app-main {
         padding: var(--spacing-lg);
     }
-    
+
     .selector-section {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         gap: var(--spacing-md);
     }
-    
+
     .selector-group {
         margin-bottom: 0;
     }
 }
 
 /* ============================================
-   Dark Mode Support (Optional)
+   Dark Mode Support
    ============================================ */
 
 @media (prefers-color-scheme: dark) {
@@ -513,22 +604,36 @@ body {
         --color-bg-light: #34495E;
         --color-border: #445566;
     }
-    
+
     .selector-input,
     .custom-item-input {
         background-color: var(--color-bg);
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23ECF0F1' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
     }
-    
+
     .checklist-item,
     .checklist-section,
     .selector-section,
     .actions-section {
         background-color: var(--color-bg);
     }
-    
+
     .checklist-item {
         background-color: var(--color-bg-light);
+    }
+
+    .reset-confirm {
+        background-color: #3d3000;
+        border-color: #665200;
+    }
+
+    .celebration {
+        background: linear-gradient(135deg, #1a3a24, #0f2a18);
+        border-color: #1e4d2b;
+    }
+
+    .celebration-text {
+        color: #a8d5b5;
     }
 }
 
@@ -540,14 +645,14 @@ body {
     body {
         background: white;
     }
-    
+
     .app-header,
     .selector-section,
     .actions-section,
     .app-footer {
         display: none;
     }
-    
+
     .checklist-item {
         page-break-inside: avoid;
     }
@@ -565,7 +670,6 @@ body {
     }
 }
 
-/* Focus Visible for Keyboard Navigation */
 :focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;

@@ -7,21 +7,21 @@
     <meta name="theme-color" content="#2D5F7F">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://skifteboksen.no/">
-    
+
     <!-- Open Graph -->
     <meta property="og:title" content="Skifteboksen – Sesongskiftet gjort enkelt">
     <meta property="og:description" content="Sjekklister for hva barn skal ha på seg hver sesong – barnehage, SFO og barneskole.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="nb_NO">
-    
+
     <!-- Apple Web App -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Skifteboksen">
-    
+
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-family='system-ui'>📦</text></svg>">
-    
+
     <link rel="stylesheet" href="style.css">
     <title>Skifteboksen – Sesongskiftet gjort enkelt</title>
 </head>
@@ -72,7 +72,7 @@
                     <span id="season-emoji">❄️</span>
                     <span id="checklist-heading">Vinter barnehage</span>
                 </h2>
-                
+
                 <div id="checklist" class="checklist" role="group" aria-labelledby="checklist-title">
                     <!-- Populated by JavaScript -->
                 </div>
@@ -84,15 +84,15 @@
                 <!-- Add Custom Item Form -->
                 <form id="add-item-form" class="add-item-form" onsubmit="addCustomItem(event)">
                     <div class="form-group">
-                        <input 
-                            type="text" 
-                            id="custom-item-input" 
-                            placeholder="Legg til eget item..." 
+                        <input
+                            type="text"
+                            id="custom-item-input"
+                            placeholder="Legg til eget plagg..."
                             class="custom-item-input"
                             maxlength="50"
-                            aria-label="Navn på eget item"
+                            aria-label="Navn på eget plagg"
                         >
-                        <button type="submit" class="btn-add-item" aria-label="Legg til eget item">
+                        <button type="submit" class="btn-add-item" aria-label="Legg til eget plagg">
                             ➕ Legg til
                         </button>
                     </div>
@@ -104,6 +104,22 @@
                 <button id="reset-btn" class="btn-reset" onclick="resetChecklist()" aria-label="Tilbakestill alle sjekkebokser">
                     🔄 Tilbakestill
                 </button>
+
+                <!-- Inline reset confirmation -->
+                <div id="reset-confirm" class="reset-confirm" hidden>
+                    <p class="reset-confirm-text">Er du sikker? Dette sletter alle avkryssinger.</p>
+                    <div class="reset-confirm-actions">
+                        <button class="btn-confirm-yes" onclick="confirmReset()">Ja, tilbakestill</button>
+                        <button class="btn-confirm-no" onclick="cancelReset()">Avbryt</button>
+                    </div>
+                </div>
+
+                <!-- Completion celebration -->
+                <div id="celebration" class="celebration" hidden>
+                    <span class="celebration-emoji">🎉</span>
+                    <p class="celebration-text">Alt er klart! Barnet er godt kledd.</p>
+                </div>
+
                 <p class="progress-text">
                     <span id="progress-count">0</span> / <span id="total-count">0</span> ferdig
                 </p>
