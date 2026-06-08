@@ -26,13 +26,6 @@ skifteboksen/
 └── README.md
 ```
 
-## Lokalt utvikling
-
-```bash
-python -m http.server 8000
-```
-
-Åpne `http://localhost:8000`
 
 ## Personvern
 
