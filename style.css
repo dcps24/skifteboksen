@@ -5,17 +5,17 @@
 
 :root {
     /* Season Colors */
-    --color-winter: #2D5F7F;
-    --color-spring: #6B8E4E;
-    --color-summer: #D4A574;
-    --color-autumn: #C55A3A;
+    --color-winter: #4A90C4;
+    --color-spring: #5BA85A;
+    --color-summer: #F5A623;
+    --color-autumn: #D4572A;
 
     /* Neutral Palette */
-    --color-primary: #2D5F7F;
+    --color-primary: #2B7BB9;
     --color-text: #2C3E50;
     --color-text-light: #7F8C8D;
     --color-bg: #FFFFFF;
-    --color-bg-light: #F8F9FA;
+    --color-bg-light: #FDFAF6;
     --color-border: #E0E6ED;
     --color-success: #27AE60;
     --color-error: #E74C3C;
@@ -43,8 +43,8 @@
     --radius-md: 1rem;
 
     /* Shadows */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.12);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* ============================================
@@ -82,7 +82,7 @@ body {
 }
 
 .app-header {
-    background: linear-gradient(135deg, var(--color-primary) 0%, #1a3a52 100%);
+    background: linear-gradient(135deg, #2B7BB9 0%, #1a5a8a 100%);
     color: #FFFFFF;
     padding: var(--spacing-lg) var(--spacing-md);
     text-align: center;
@@ -149,7 +149,7 @@ body {
     cursor: pointer;
     transition: border-color 0.2s, box-shadow 0.2s;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%232D5F7F' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%232B7BB9' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right var(--spacing-sm) center;
     padding-right: var(--spacing-lg);
@@ -162,7 +162,7 @@ body {
 .selector-input:focus {
     outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(45, 95, 127, 0.1);
+    box-shadow: 0 0 0 3px rgba(43, 123, 185, 0.15);
 }
 
 .selector-help {
@@ -218,7 +218,7 @@ body {
 }
 
 .checklist-item:hover {
-    background-color: #FFFAF5;
+    background-color: #FFF8F0;
     box-shadow: var(--shadow-sm);
 }
 
@@ -284,7 +284,7 @@ body {
     justify-content: space-between;
     gap: var(--spacing-md);
     padding: var(--spacing-md);
-    background-color: #FFF9F0;
+    background-color: #FFF5EC;
     border-radius: var(--radius-sm);
     border-left: 4px solid var(--color-autumn);
 }
@@ -351,11 +351,13 @@ body {
     border: 2px solid var(--color-border);
     border-radius: var(--radius-sm);
     transition: border-color 0.2s;
+    background-color: var(--color-bg);
 }
 
 .custom-item-input:focus {
     outline: none;
     border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(43, 123, 185, 0.15);
 }
 
 .btn-add-item {
@@ -376,7 +378,7 @@ body {
 }
 
 .btn-add-item:hover {
-    background-color: #1a3a52;
+    background-color: #1a5a8a;
 }
 
 .btn-add-item:active {
@@ -433,8 +435,8 @@ body {
    ============================================ */
 
 .reset-confirm {
-    background-color: #FFF3CD;
-    border: 1px solid #FFEAA7;
+    background-color: #FFF8EC;
+    border: 1px solid #FFD98E;
     border-radius: var(--radius-sm);
     padding: var(--spacing-md);
     margin-bottom: var(--spacing-md);
@@ -556,21 +558,39 @@ body {
    Seasonal Theme Switching
    ============================================ */
 
+/* Winter: crisp sky blue */
 .app-header.theme-winter {
-    background: linear-gradient(135deg, #2D5F7F 0%, #1a3a52 100%);
+    background: linear-gradient(135deg, #4A90C4 0%, #2a5f8a 100%);
 }
 
+.app-header.theme-winter ~ .app-main .checklist-title,
+body.theme-winter .checklist-title {
+    color: #4A90C4;
+}
+
+/* Spring: fresh green */
 .app-header.theme-spring {
-    background: linear-gradient(135deg, #6B8E4E 0%, #4d5f38 100%);
+    background: linear-gradient(135deg, #5BA85A 0%, #3d7a3c 100%);
 }
 
+/* Summer: warm golden sun */
 .app-header.theme-summer {
-    background: linear-gradient(135deg, #D4A574 0%, #a67f52 100%);
+    background: linear-gradient(135deg, #F5A623 0%, #c97d10 100%);
 }
 
+/* Autumn: rich fiery orange */
 .app-header.theme-autumn {
-    background: linear-gradient(135deg, #C55A3A 0%, #9d4228 100%);
+    background: linear-gradient(135deg, #D4572A 0%, #a03d18 100%);
 }
+
+/* ============================================
+   Season-tinted checklist borders
+   ============================================ */
+
+.theme-active-winter .checklist-item { border-left-color: #4A90C4; }
+.theme-active-spring .checklist-item { border-left-color: #5BA85A; }
+.theme-active-summer .checklist-item { border-left-color: #F5A623; }
+.theme-active-autumn .checklist-item { border-left-color: #D4572A; }
 
 /* ============================================
    Responsive Design
@@ -600,9 +620,9 @@ body {
     :root {
         --color-text: #ECF0F1;
         --color-text-light: #BDC3C7;
-        --color-bg: #2C3E50;
-        --color-bg-light: #34495E;
-        --color-border: #445566;
+        --color-bg: #1E2A35;
+        --color-bg-light: #263545;
+        --color-border: #3a4f63;
     }
 
     .selector-input,
@@ -623,8 +643,8 @@ body {
     }
 
     .reset-confirm {
-        background-color: #3d3000;
-        border-color: #665200;
+        background-color: #2e2000;
+        border-color: #5c3d00;
     }
 
     .celebration {
@@ -634,6 +654,10 @@ body {
 
     .celebration-text {
         color: #a8d5b5;
+    }
+
+    .custom-item {
+        background-color: #2a1e10;
     }
 }
 
