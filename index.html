@@ -32,7 +32,6 @@
         </header>
 
         <main class="app-main">
-            <!-- Season & Context Selector -->
             <section class="selector-section" aria-labelledby="season-label">
                 <div class="selector-group">
                     <label id="season-label" for="season-select" class="selector-label">Sesong</label>
@@ -65,20 +64,17 @@
                 </div>
             </section>
 
-            <!-- Checklist -->
             <section class="checklist-section" aria-labelledby="checklist-title">
                 <h2 id="checklist-title" class="checklist-title">
                     <span id="season-emoji">❄️</span>
                     <span id="checklist-heading">Vinter barnehage</span>
                 </h2>
 
-                <div id="checklist" class="checklist" role="group" aria-labelledby="checklist-title">
-                </div>
+                <div id="checklist" class="checklist" role="group" aria-labelledby="checklist-title"></div>
 
-                <div id="custom-items" class="custom-items">
-                </div>
+                <div id="custom-items" class="custom-items"></div>
 
-                <form id="add-item-form" class="add-item-form" onsubmit="addCustomItem(event)">
+                <form id="add-item-form" class="add-item-form">
                     <div class="form-group">
                         <input
                             type="text"
@@ -87,25 +83,25 @@
                             class="custom-item-input"
                             maxlength="50"
                             aria-label="Navn på eget plagg"
+                            autocomplete="off"
                         >
-                        <button type="submit" class="btn-add-item" aria-label="Legg til eget plagg">
+                        <button type="submit" class="btn-add-item">
                             ➕ Legg til
                         </button>
                     </div>
                 </form>
             </section>
 
-            <!-- Actions -->
             <section class="actions-section">
-                <button id="reset-btn" class="btn-reset" onclick="resetChecklist()" aria-label="Tilbakestill alle sjekkebokser">
+                <button id="reset-btn" class="btn-reset">
                     🔄 Tilbakestill
                 </button>
 
                 <div id="reset-confirm" class="reset-confirm" hidden>
                     <p class="reset-confirm-text">Er du sikker? Dette sletter alle avkryssinger.</p>
                     <div class="reset-confirm-actions">
-                        <button class="btn-confirm-yes" onclick="confirmReset()">Ja, tilbakestill</button>
-                        <button class="btn-confirm-no" onclick="cancelReset()">Avbryt</button>
+                        <button id="btn-confirm-yes" class="btn-confirm-yes">Ja, tilbakestill</button>
+                        <button id="btn-confirm-no" class="btn-confirm-no">Avbryt</button>
                     </div>
                 </div>
 
@@ -125,39 +121,6 @@
             </footer>
         </main>
     </div>
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Hva bør barn ha på seg i vinterbarnehagen?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Barn i barnehage trenger varmt lag: sokker, undertrøye, ullundertøy, vinterjakke, lue, votter, og overtrekksko eller gummistøvler."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Hvor ofte skal jeg bytte klær på barn?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Sjekk værmeldingen og byttelisten når sesongen skifter. De fleste foreldre sjekker hver 3-4 uker eller når været endrer seg drastisk."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Hva er overtrekksko?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Overtrekksko (eller Cherrox) er elastiske skodekkinger du trekker over barnets sko. De er vanlige i Norge for å holde varmen og unngå å få snø inn i skoene."
-                }
-            }
-        ]
-    }
-    </script>
 
     <script src="app.js"></script>
 </body>
